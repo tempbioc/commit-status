@@ -26,6 +26,6 @@ runs:
     - ${{ inputs.repo }}
     - ${{ inputs.sha }}
     - ${{ inputs.state }}
-    - ${{ inputs.required }}
+    - ${{ inputs.url }}
     - ${{ inputs.context }}
     - ${{ inputs.description }}
