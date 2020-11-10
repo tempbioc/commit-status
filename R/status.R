@@ -11,6 +11,7 @@
 #' @param context which build this is for example "universe/docs"
 #' @param description more information about this build
 gh_app_set_commit_status <- function(repo, sha, state, url, context, description){
+  repo <- sub("https?://github.com/", "", repo)
   stopifnot(state %in% c('error', 'failure', 'pending', 'success'))
   token <- gh::gh_app_token(repo)
   endpoint <- sprintf('/repos/%s/statuses/%s', repo, sha)
