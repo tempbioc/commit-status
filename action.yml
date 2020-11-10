@@ -1,0 +1,31 @@
+name: 'Commit Status'
+description: 'GitHub App to set Commit Status'
+inputs:
+  repo:
+    description: 'Full repo name for example "ropensci/magick"'
+    required: true
+  sha:
+    description: 'Hash of the commit to update'
+    required: true
+  state:
+    description: 'One of pending, success, error, or failure'
+    required: true
+  url:
+    description: 'Link to the build logs'
+    required: true
+  context:
+    description: 'Which build this is for example "universe/docs"'
+    required: true
+  description:
+    description: 'More information about this build'
+    required: true
+runs:
+  using: 'docker'
+  image: 'docker://runiverse/commitstatus'
+  args:
+    - ${{ inputs.repo }}
+    - ${{ inputs.sha }}
+    - ${{ inputs.state }}
+    - ${{ inputs.required }}
+    - ${{ inputs.context }}
+    - ${{ inputs.description }}
