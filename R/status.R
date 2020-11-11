@@ -12,8 +12,8 @@ gh_app_set_commit_status <- function(repo, sha, url, deployed_packages){
   repo <- sub("https?://github.com/", "", repo)
   token <- gh::gh_app_token(repo)
   endpoint <- sprintf('/repos/%s/statuses/%s', repo, sha)
-  context <- 'r-universe/deploy'
-  description <- 'Deploying to R-universe package server'
+  context <- 'r-universe/packages/deploy'
+  description <- 'Deploy binaries to R-universe package server'
   state <- if(grepl('pending', deployed_packages)){
     'pending'
   } else if(grepl("windows-release", deployed_packages) && grepl("macos-release", deployed_packages)){
