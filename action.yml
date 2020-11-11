@@ -7,25 +7,17 @@ inputs:
   sha:
     description: 'Hash of the commit to update'
     required: true
-  state:
-    description: 'One of pending, success, error, or failure'
-    required: true
   url:
     description: 'Link to the build logs'
     required: true
-  context:
-    description: 'Which build this is for example "universe/docs"'
-    required: true
-  description:
-    description: 'More information about this build'
-    required: true
+  deployed_packages:
+    description: 'String with deployed packages to infer success'
+    required: false
 runs:
   using: 'docker'
   image: 'docker://runiverse/commit-status'
   args:
     - ${{ inputs.repo }}
     - ${{ inputs.sha }}
-    - ${{ inputs.state }}
     - ${{ inputs.url }}
-    - ${{ inputs.context }}
-    - ${{ inputs.description }}
+    - ${{ inputs.deployed_packages }}

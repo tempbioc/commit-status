@@ -4,20 +4,16 @@
 \alias{gh_app_set_commit_status}
 \title{Set Commit Status}
 \usage{
-gh_app_set_commit_status(repo, sha, state, url, context, description)
+gh_app_set_commit_status(repo, sha, url, deployed_packages)
 }
 \arguments{
 \item{repo}{full repo name for example "ropensci/magick"}
 
 \item{sha}{hash of the commit to update}
 
-\item{state}{one of 'pending', 'success', 'error', 'failure'}
-
 \item{url}{link to the build logs}
 
-\item{context}{which build this is for example "universe/docs"}
-
-\item{description}{more information about this build}
+\item{deployed_packages}{string with deployed artifacts}
 }
 \description{
 Sets the commit status on a commit from a GitHub App.
