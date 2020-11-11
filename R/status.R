@@ -7,12 +7,13 @@
 #' @param repo full repo name for example "ropensci/magick"
 #' @param sha hash of the commit to update
 #' @param url link to the build logs
+#' @param universe name of the universe where packages were deployed to
 #' @param deployed_packages string with deployed artifacts
-gh_app_set_commit_status <- function(repo, sha, url, deployed_packages){
+gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages){
   repo <- sub("https?://github.com/", "", repo)
   token <- gh::gh_app_token(repo)
   endpoint <- sprintf('/repos/%s/statuses/%s', repo, sha)
-  context <- 'r-universe/packages/deploy'
+  context <- sprintf('r-universe/%s/%s/deploy', universe, basename(repo))
   description <- 'Deploy binaries to R-universe package server'
   state <- if(grepl('pending', deployed_packages)){
     'pending'

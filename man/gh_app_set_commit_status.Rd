@@ -4,7 +4,7 @@
 \alias{gh_app_set_commit_status}
 \title{Set Commit Status}
 \usage{
-gh_app_set_commit_status(repo, sha, url, deployed_packages)
+gh_app_set_commit_status(repo, sha, url, universe, deployed_packages)
 }
 \arguments{
 \item{repo}{full repo name for example "ropensci/magick"}
@@ -12,6 +12,8 @@ gh_app_set_commit_status(repo, sha, url, deployed_packages)
 \item{sha}{hash of the commit to update}
 
 \item{url}{link to the build logs}
+
+\item{universe}{name of the universe where packages were deployed to}
 
 \item{deployed_packages}{string with deployed artifacts}
 }

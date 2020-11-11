@@ -10,6 +10,9 @@ inputs:
   url:
     description: 'Link to the build logs'
     required: true
+  universe:
+    description: 'Name of the universe where packages were deployed to'
+    required: true
   deployed_packages:
     description: 'String with deployed packages to infer success'
     required: false
@@ -20,4 +23,5 @@ runs:
     - ${{ inputs.repo }}
     - ${{ inputs.sha }}
     - ${{ inputs.url }}
+    - ${{ inputs.universe }}
     - ${{ inputs.deployed_packages }}
