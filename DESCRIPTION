@@ -7,7 +7,9 @@ Authors@R: person("Jeroen", "Ooms", ,"jeroen@berkeley.edu",
 Description: Set a commit status on behalf of a GitHub app.
 Encoding: UTF-8
 LazyData: true
-Imports: gh
-Remotes: r-lib/gh@ghapps
+Imports: 
+    gh,
+    ghapps
+Remotes: jeroen/ghapps
 RoxygenNote: 7.1.1
 License: Apache License 2.0
