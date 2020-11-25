@@ -12,7 +12,7 @@
 gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages){
   repo <- sub("https?://github.com/", "", repo)
   repo <- sub("\\.git$", "", repo)
-  token <- ghapps::gh_app_token(repo)
+  token <- ghapps::gh_app_token(app_id = '87942', repo)
   endpoint <- sprintf('/repos/%s/statuses/%s', repo, sha)
   context <- sprintf('r-universe/%s/%s/deploy', universe, basename(repo))
   description <- 'Deploy binaries to R-universe package server'
