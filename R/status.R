@@ -9,7 +9,8 @@
 #' @param url link to the build logs
 #' @param universe name of the universe where packages were deployed to
 #' @param deployed_packages string with deployed artifacts
-gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages){
+#' @param source_status string with result of building source pkg including vignettes
+gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages, source_status = NULL){
   repo <- sub("https?://github.com/", "", repo)
   repo <- sub("\\.git$", "", repo)
   token <- ghapps::gh_app_token(app_id = '87942', repo)
@@ -18,7 +19,7 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
   description <- 'Deploy binaries to R-universe package server'
   state <- if(grepl('pending', deployed_packages)){
     'pending'
-  } else if(grepl("windows-release", deployed_packages) && grepl("macos-release", deployed_packages)){
+  } else if(grepl("windows-release", deployed_packages) && grepl("macos-release", deployed_packages) && !identical(source_status, 'failure')){
     'success'
   } else {
     'failure'

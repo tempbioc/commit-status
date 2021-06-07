@@ -4,7 +4,14 @@
 \alias{gh_app_set_commit_status}
 \title{Set Commit Status}
 \usage{
-gh_app_set_commit_status(repo, sha, url, universe, deployed_packages)
+gh_app_set_commit_status(
+  repo,
+  sha,
+  url,
+  universe,
+  deployed_packages,
+  source_status = NULL
+)
 }
 \arguments{
 \item{repo}{full repo name for example "ropensci/magick"}
@@ -16,6 +23,8 @@ gh_app_set_commit_status(repo, sha, url, universe, deployed_packages)
 \item{universe}{name of the universe where packages were deployed to}
 
 \item{deployed_packages}{string with deployed artifacts}
+
+\item{source_status}{string with result of building source pkg including vignettes}
 }
 \description{
 Sets the commit status on a commit from a GitHub App.
