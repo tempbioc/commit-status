@@ -36,11 +36,10 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
   # relay status for pkgdown render job
   if(identical(docs_status, 'failure') || identical(docs_status, 'success')){
     description <- 'Render pkgdown documentation site'
-    context <- paste0('docs/', basename(repo))
     docs_url <- if(grepl('success', docs_status)){
       paste0('https://docs.ropensci.org/', pkg)
     } else {url}
     gh::gh(endpoint, .method = 'POST', .token = token, state = docs_status,
-           target_url = docs_url, context = context, description = description)
+           target_url = docs_url, context = 'pkgdown-docs', description = description)
   }
 }
