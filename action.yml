@@ -19,6 +19,9 @@ inputs:
   source_status:
     description: 'Success or failure of building source package vignettes'
     required: false
+  docs_status:
+    description: 'Success or failure of building pkgdown documentation'
+    required: false
 runs:
   using: 'docker'
   image: 'docker://runiverse/commit-status'
@@ -29,3 +32,4 @@ runs:
     - ${{ inputs.universe }}
     - ${{ inputs.deployed_packages }}
     - ${{ inputs.source_status }}
+    - ${{ inputs.docs_status }}
