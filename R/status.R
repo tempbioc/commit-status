@@ -30,8 +30,8 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
   univ_url <- if(state == 'success'){
     sprintf('https://%s.r-universe.dev', universe)
   } else {url}
-  gh::gh(endpoint, .method = 'POST', .token = token, state = state,
-         target_url = univ_url, context = context, description = description)
+  print(gh::gh(endpoint, .method = 'POST', .token = token, state = state,
+         target_url = univ_url, context = context, description = description))
 
   # relay status for pkgdown render job
   if(identical(docs_status, 'failure') || identical(docs_status, 'success')){
@@ -39,7 +39,7 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
     docs_url <- if(grepl('success', docs_status)){
       paste0('https://docs.ropensci.org/', pkg)
     } else {url}
-    gh::gh(endpoint, .method = 'POST', .token = token, state = docs_status,
-           target_url = docs_url, context = 'pkgdown-docs', description = description)
+    print(gh::gh(endpoint, .method = 'POST', .token = token, state = docs_status,
+           target_url = docs_url, context = 'pkgdown-docs', description = description))
   }
 }
