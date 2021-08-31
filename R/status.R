@@ -10,7 +10,9 @@
 #' @param universe name of the universe where packages were deployed to
 #' @param deployed_packages string with deployed artifacts
 #' @param source_status string with result of building source pkg including vignettes
-gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages, source_status = NULL){
+#' @param docs_status string with result of building pkgdown documentation
+gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages,
+                                     source_status = NULL, docs_status = NULL){
   repo <- sub("https?://github.com/", "", repo)
   repo <- sub("\\.git$", "", repo)
   token <- ghapps::gh_app_token(app_id = '87942', repo)

@@ -10,7 +10,8 @@ gh_app_set_commit_status(
   url,
   universe,
   deployed_packages,
-  source_status = NULL
+  source_status = NULL,
+  docs_status = NULL
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ gh_app_set_commit_status(
 \item{deployed_packages}{string with deployed artifacts}
 
 \item{source_status}{string with result of building source pkg including vignettes}
+
+\item{docs_status}{string with result of building pkgdown documentation}
 }
 \description{
 Sets the commit status on a commit from a GitHub App.
