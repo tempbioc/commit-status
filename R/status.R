@@ -15,9 +15,10 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
                                      source_status = NULL, docs_status = NULL){
   repo <- sub("https?://github.com/", "", repo)
   repo <- sub("\\.git$", "", repo)
+  pkg <- basename(repo)
   token <- ghapps::gh_app_token(app_id = '87942', repo)
   endpoint <- sprintf('/repos/%s/statuses/%s', repo, sha)
-  context <- sprintf('r-universe/%s/%s/deploy', universe, basename(repo))
+  context <- sprintf('r-universe/%s/%s/deploy', universe, pkg)
   description <- 'Deploy binaries to R-universe package server'
   state <- if(grepl('pending', deployed_packages)){
     'pending'
@@ -26,9 +27,20 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
   } else {
     'failure'
   }
-  if(state == 'success'){
-    url <- sprintf('https://%s.r-universe.dev', universe)
-  }
+  univ_url <- if(state == 'success'){
+    sprintf('https://%s.r-universe.dev', universe)
+  } else {url}
   gh::gh(endpoint, .method = 'POST', .token = token, state = state,
-         target_url = url, context = context, description = description)
+         target_url = univ_url, context = context, description = description)
+
+  # relay status for pkgdown render job
+  if(identical(docs_status, 'failure') || identical(docs_status, 'success')){
+    description <- 'Render pkgdown documentation site'
+    context <- paste0('docs/', basename(repo))
+    docs_url <- if(grepl('success', docs_status)){
+      paste0('https://docs.ropensci.org/', pkg)
+    } else {url}
+    gh::gh(endpoint, .method = 'POST', .token = token, state = docs_status,
+           target_url = docs_url, context = context, description = description)
+  }
 }
