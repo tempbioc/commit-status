@@ -27,7 +27,6 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
   } else {
     'failure'
   }
-  try(comment_failed_deployment(url))
   univ_url <- if(state == 'success'){
     sprintf('https://%s.r-universe.dev', universe)
   } else {url}
@@ -45,6 +44,7 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
   }
 }
 
+# Does not work with current app permissions
 comment_failed_deployment <- function(url){
   token <- ghapps::gh_app_token(app_id = '87942', 'r-universe-org/bugs')
   endpoint <- '/repos/r-universe-org/bugs/issues/123/comments'
