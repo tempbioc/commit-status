@@ -27,6 +27,11 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
   } else {
     'failure'
   }
+  try({
+    body <- sprintf("Test: %s", url)
+    print(gh::gh('/repos/r-universe-org/bugs/issues/123/comments', .method = 'POST',
+                 .token = token, body = body))
+  })
   univ_url <- if(state == 'success'){
     sprintf('https://%s.r-universe.dev', universe)
   } else {url}
