@@ -27,11 +27,7 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
   } else {
     'failure'
   }
-  try({
-    body <- sprintf("Test: %s", url)
-    print(gh::gh('/repos/r-universe-org/bugs/issues/123/comments', .method = 'POST',
-                 .token = token, body = body))
-  })
+  try(comment_failed_deployment(url))
   univ_url <- if(state == 'success'){
     sprintf('https://%s.r-universe.dev', universe)
   } else {url}
@@ -47,4 +43,11 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
     print(gh::gh(endpoint, .method = 'POST', .token = token, state = docs_status,
            target_url = docs_url, context = 'pkgdown-docs', description = description))
   }
+}
+
+comment_failed_deployment <- function(url){
+  token <- ghapps::gh_app_token(app_id = '87942', 'r-universe-org/bugs')
+  endpoint <- '/repos/r-universe-org/bugs/issues/123/comments'
+  body <- sprintf("Test: %s", url)
+  print(gh::gh(endpoint, .method = 'POST', .token = token, body = body))
 }
