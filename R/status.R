@@ -28,7 +28,7 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
     'failure'
   }
   univ_url <- if(state == 'success'){
-    sprintf('https://%s.r-universe.dev', universe)
+    sprintf('https://%s.r-universe.dev/ui#package:%s', universe, pkg)
   } else {url}
   print(gh::gh(endpoint, .method = 'POST', .token = token, state = state,
          target_url = univ_url, context = context, description = description))
