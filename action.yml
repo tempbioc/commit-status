@@ -24,7 +24,7 @@ inputs:
     required: false
 runs:
   using: 'docker'
-  image: 'docker://runiverse/commit-status'
+  image: 'docker://ghcr.io/r-universe-org/commit-status'
   args:
     - ${{ inputs.repo }}
     - ${{ inputs.sha }}
