@@ -16,7 +16,7 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
   repo <- sub("https?://github.com/", "", repo)
   repo <- sub("\\.git$", "", repo)
   pkg <- basename(repo)
-  token <- ghapps::gh_app_token(app_id = '87942', repo)
+  token <- ghapps::gh_app_token(repo)
   endpoint <- sprintf('/repos/%s/statuses/%s', repo, sha)
   context <- sprintf('r-universe/%s/%s/deploy', universe, pkg)
   description <- 'Deploy binaries to R-universe package server'
@@ -46,7 +46,7 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
 
 # Does not work with current app permissions
 comment_failed_deployment <- function(url){
-  token <- ghapps::gh_app_token(app_id = '87942', 'r-universe-org/bugs')
+  token <- ghapps::gh_app_token('r-universe-org/bugs')
   endpoint <- '/repos/r-universe-org/bugs/issues/123/comments'
   body <- sprintf("Test: %s", url)
   print(gh::gh(endpoint, .method = 'POST', .token = token, body = body))
