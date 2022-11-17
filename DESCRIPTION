@@ -10,6 +10,5 @@ LazyData: true
 Imports: 
     gh,
     ghapps
-Remotes: jeroen/ghapps
 RoxygenNote: 7.1.1
 License: Apache License 2.0
