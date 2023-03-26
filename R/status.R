@@ -11,8 +11,9 @@
 #' @param deployed_packages string with deployed artifacts
 #' @param source_status string with result of building source pkg including vignettes
 #' @param docs_status string with result of building pkgdown documentation
+#' @param os_type string with OS_type from description
 gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages,
-                                     source_status = NULL, docs_status = NULL){
+                                     source_status = NULL, docs_status = NULL, os_type = NULL){
   repo <- sub("https?://github.com/", "", repo)
   repo <- sub("\\.git$", "", repo)
   pkg <- basename(repo)
@@ -22,7 +23,7 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
   description <- 'Deploy binaries to R-universe package server'
   state <- if(grepl('pending', deployed_packages)){
     'pending'
-  } else if(grepl("windows-release", deployed_packages) && grepl("macos-release", deployed_packages) && !identical(source_status, 'failure')){
+  } else if(is_success(deployed_packages, source_status, os_type)){
     'success'
   } else {
     'failure'
@@ -42,6 +43,13 @@ gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages
     print(gh::gh(endpoint, .method = 'POST', .token = token, state = docs_status,
            target_url = docs_url, context = 'pkgdown-docs', description = description))
   }
+}
+
+is_success <- function(deployed_packages, source_status, os_type){
+  src_ok <- !identical(source_status, 'failure')
+  win_ok <- grepl("windows-release", deployed_packages) || grepl('unix', os_type)
+  mac_ok <- grepl("macos-release", deployed_packages) || grepl('win', os_type)
+  return(src_ok && win_ok && mac_ok)
 }
 
 # Does not work with current app permissions

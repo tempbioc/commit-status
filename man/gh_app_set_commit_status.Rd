@@ -11,7 +11,8 @@ gh_app_set_commit_status(
   universe,
   deployed_packages,
   source_status = NULL,
-  docs_status = NULL
+  docs_status = NULL,
+  os_type = NULL
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ gh_app_set_commit_status(
 \item{source_status}{string with result of building source pkg including vignettes}
 
 \item{docs_status}{string with result of building pkgdown documentation}
+
+\item{os_type}{string with OS_type from description}
 }
 \description{
 Sets the commit status on a commit from a GitHub App.

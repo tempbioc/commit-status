@@ -22,6 +22,10 @@ inputs:
   docs_status:
     description: 'Success or failure of building pkgdown documentation'
     required: false
+  ostype:
+    description: 'The OS_type field in description'
+    required: true
+
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/r-universe-org/commit-status'
@@ -33,3 +37,4 @@ runs:
     - ${{ inputs.deployed_packages }}
     - ${{ inputs.source_status }}
     - ${{ inputs.docs_status }}
+    - ${{ inputs.ostype }}
