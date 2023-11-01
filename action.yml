@@ -25,16 +25,23 @@ inputs:
   ostype:
     description: 'The OS_type field in description'
     required: true
-
+  package:
+    description: 'Name of the package to be deployed'
+    required: false
+  has_app:
+    description: 'If upstream has the app installed'
+    required: false
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/r-universe-org/commit-status'
-  args:
-    - ${{ inputs.repo }}
-    - ${{ inputs.sha }}
-    - ${{ inputs.url }}
-    - ${{ inputs.universe }}
-    - ${{ inputs.deployed_packages }}
-    - ${{ inputs.source_status }}
-    - ${{ inputs.docs_status }}
-    - ${{ inputs.ostype }}
+  env:
+    REPO: ${{ inputs.repo }}
+    SHA: ${{ inputs.sha }}
+    BUILDLOG: ${{ inputs.url }}
+    UNIVERSE: ${{ inputs.universe }}
+    DEPLOYED_PACKAGES: ${{ inputs.deployed_packages }}
+    SOURCE_STATUS: ${{ inputs.source_status }}
+    DOCS_STATUS: ${{ inputs.docs_status }}
+    OSTYPE: ${{ inputs.ostype }}
+    PACKAGE: ${{ inputs.package }}
+    HAS_APP: ${{ inputs.has_app }}
