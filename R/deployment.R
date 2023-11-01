@@ -13,7 +13,7 @@ update_deployment_status <- function(universe, package, ref, buildlog, source_st
                 universe = universe, environment = 'r-universe', ref = ref,
                 description = sprintf('Deploying to https://%s.r-universe.dev/%s', universe, package),
                 production_environment = TRUE, auto_merge = FALSE,
-                task = 'deploy', required_contexts = vector())
+                task = paste0('deploy:', package), required_contexts = vector())
 
   state <- ifelse(identical(source_status, 'failure'),  'failure', 'success')
   gh::gh('POST /repos/r-universe/{universe}/deployments/{deployment_id}/statuses',
