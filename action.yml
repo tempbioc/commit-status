@@ -31,6 +31,9 @@ inputs:
   has_app:
     description: 'If upstream has the app installed'
     required: false
+  is_rebuild:
+    description: 'This is a rebuild of an older commit'
+    required: false
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/r-universe-org/commit-status'
@@ -45,3 +48,4 @@ runs:
     OSTYPE: ${{ inputs.ostype }}
     PACKAGE: ${{ inputs.package }}
     HAS_APP: ${{ inputs.has_app }}
+    IS_REBUILD: ${{ inputs.is_rebuild }}
