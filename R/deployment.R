@@ -17,6 +17,6 @@ update_deployment_status <- function(universe, package, ref, buildlog, source_st
 
   state <- ifelse(identical(source_status, 'failure'),  'failure', 'success')
   gh::gh('POST /repos/r-universe/{universe}/deployments/{deployment_id}/statuses',
-                 universe = universe, deployment_id = deployment$id, state = state,
+                 universe = universe, deployment_id = deployment$id, state = state, auto_inactive = FALSE,
                  log_url = buildlog, description = 'Deployment to r-universe was successful!')
 }
