@@ -10,7 +10,7 @@
 #' @param source_status string with result of building source pkg including vignettes
 update_deployment_status <- function(universe, package, ref, buildlog, source_status){
   deployment <- gh::gh('POST /repos/r-universe/{universe}/deployments',
-                universe = universe, environment = 'r-universe', ref = ref,
+                universe = universe, ref = ref,
                 description = sprintf('Deploying to https://%s.r-universe.dev/%s', universe, package),
                 production_environment = TRUE, auto_merge = FALSE,
                 task = paste0('deploy:', package), required_contexts = vector())
