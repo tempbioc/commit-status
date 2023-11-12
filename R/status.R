@@ -12,11 +12,10 @@
 #' @param source_status string with result of building source pkg including vignettes
 #' @param docs_status string with result of building pkgdown documentation
 #' @param os_type string with OS_type from description
-gh_app_set_commit_status <- function(repo, sha, url, universe, deployed_packages,
+gh_app_set_commit_status <- function(repo, pkg, sha, url, universe, deployed_packages,
                                      source_status = NULL, docs_status = NULL, os_type = NULL){
   repo <- sub("https?://github.com/", "", repo)
   repo <- sub("\\.git$", "", repo)
-  pkg <- basename(repo)
   token <- ghapps::gh_app_token(repo)
   endpoint <- sprintf('/repos/%s/statuses/%s', repo, sha)
   context <- sprintf('r-universe/%s/%s/deploy', universe, pkg)
