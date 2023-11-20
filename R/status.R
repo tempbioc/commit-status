@@ -18,7 +18,7 @@ gh_app_set_commit_status <- function(repo, pkg, sha, url, universe, deployed_pac
   repo <- sub("\\.git$", "", repo)
   token <- ghapps::gh_app_token(repo)
   endpoint <- sprintf('/repos/%s/statuses/%s', repo, sha)
-  context <- sprintf('r-universe/%s/%s/deploy', universe, pkg)
+  context <- sprintf('r-universe/%s/%s/deploy', universe, basename(repo))
   description <- 'Deploy binaries to R-universe package server'
   state <- if(grepl('pending', deployed_packages)){
     'pending'
