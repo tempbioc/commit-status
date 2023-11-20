@@ -42,6 +42,22 @@ gh_app_set_commit_status <- function(repo, pkg, sha, url, universe, deployed_pac
     print(gh::gh(endpoint, .method = 'POST', .token = token, state = docs_status,
            target_url = docs_url, context = 'pkgdown-docs', description = description))
   }
+
+  # Temp fix: reset old broken statuses
+  if(state != 'pending') {
+    endpoint2 <- sprintf('/repos/%s/commits/%s/status', repo, sha)
+    statuses <- gh::gh(endpoint2, .token = token)$statuses
+    pending <- Find(function(x){
+      return(x$state == 'pending' && x$context == sprintf('r-universe/%s//deploy', universe))
+    }, statuses)
+    if(length(pending)){
+      print("Finalizing broken status update...")
+      print(gh::gh(pending$url, .method = 'POST', .token = token, state = state,
+                   target_url = univ_url, context = pending$context, description = description))
+    } else {
+      print("No broken status update needed.")
+    }
+  }
 }
 
 is_success <- function(deployed_packages, source_status, os_type){
