@@ -9,7 +9,7 @@ Rscript -e "commitstatus::gh_app_set_commit_status('${REPO}', '${PACKAGE}', '${S
 fi
 
 #if [ "${DEPLOYED_PACKAGES}" != "pending" ] && [ -z "${IS_REBUILD}" ]; then
-#echo "Create deployment for ${PACKAGE} in https://github.com/r-universe/${UNIVERSE}"
+#echo "Create deployment for ${PACKAGE} in https://github.com/tempbioc/${UNIVERSE}"
 #Rscript -e "commitstatus::update_deployment_status('${UNIVERSE}', '${PACKAGE}', '${GITHUB_SHA}','${BUILDLOG}', '${SOURCE_STATUS}')"
 #fi
 
